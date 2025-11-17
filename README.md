@@ -111,7 +111,7 @@ response
 	}
 }
 
-http://127.0.0.1:8000/api/profile/1
+http://127.0.0.1:8000/api/profile/{id}
 
 request 
 
