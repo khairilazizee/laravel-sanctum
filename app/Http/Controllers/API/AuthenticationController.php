@@ -17,7 +17,7 @@ class AuthenticationController extends Controller
             $request->validate([
                 'name' => 'required|string|max:255',
                 'email' => 'required|string|email|max:255|unique:users',
-                'password' => 'required|string|min:8|confirmed',
+                'password' => 'required|string|min:8',
             ]);
 
             $user = User::create([
@@ -81,7 +81,7 @@ class AuthenticationController extends Controller
         }
     }
 
-    public function profile(Request $request)
+    public function getUsers()
     {
         try {
             $user = User::latest()->paginate(10);
@@ -91,10 +91,40 @@ class AuthenticationController extends Controller
                 'message' => 'Profile fetched successfully',
                 'users' => $user,
             ], 200);
+        } catch (ValidationException $e) {
+            return response()->json([
+                'response_code' => 422,
+                'message' => 'Validation failed',
+                'errors' => $e->errors(),
+            ], 422);
         } catch (\Exception $e) {
             return response()->json([
                 'response_code' => 500,
                 'message' => 'Profile fetch failed',
+                'error' => $e->getMessage(),
+            ], 500);
+        }
+    }
+
+    public function getUser($id)
+    {
+        try {
+            $user = User::findOrFail($id);
+            return response()->json([
+                'response_code' => 200,
+                'message' => 'Profile fetched successfully',
+                'user' => $user,
+            ], 200);
+        } catch (ValidationException $e) {
+            return response()->json([
+                'response_code' => 405,
+                'message' => 'Validation failed',
+                'errors' => $e->errors(),
+            ], 405);
+        } catch (\Exception $e) {
+            return response()->json([
+                'response_code' => 500,
+                'message' => 'Logout failed',
                 'error' => $e->getMessage(),
             ], 500);
         }
