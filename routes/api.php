@@ -5,10 +5,6 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\API\AuthenticationController;
 use Illuminate\Container\Attributes\Auth;
 
-Route::get('/user', function (Request $request) {
-    return $request->user();
-})->middleware('auth:sanctum');
-
 
 Route::namespace('App\Http\Controllers\API')->group(function () {
     Route::post('/register', [AuthenticationController::class, 'register'])->name('register');
