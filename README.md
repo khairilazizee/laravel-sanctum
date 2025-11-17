@@ -59,7 +59,7 @@ http://127.0.0.1:8000/api/users
 request 
 
 header
-Authorization : Bearer <token>
+Authorization : Bearer [token]
 
 response
 
@@ -111,11 +111,11 @@ response
 	}
 }
 
-http://127.0.0.1:8000/profile/1
+http://127.0.0.1:8000/api/profile/1
 
 request 
 
-Authorization : Bearer <token>
+Authorization : Bearer [token]
 
 response
 
@@ -130,5 +130,19 @@ response
 		"created_at": "2025-11-17T00:04:01.000000Z",
 		"updated_at": "2025-11-17T00:04:01.000000Z"
 	}
+}
+
+
+http://127.0.0.1:8000/api/logout
+
+request 
+
+Authorization : Bearer [token]
+
+response
+
+{
+	"response_code": 200,
+	"message": "Logout successful"
 }
 
